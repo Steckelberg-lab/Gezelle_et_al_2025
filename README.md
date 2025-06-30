@@ -36,7 +36,7 @@ Start with:
 
 1. Download the database from NCBI virus / BV-BRC
 
-2. Build CM model with initial alighment created and calibrate (`cmbuild`, `cmcalibrate`), run `cmsearch` with the parameter -T 0
+2. Build CM model with the initial alignment and calibrate (`cmbuild`, `cmcalibrate`), run `cmsearch` with the parameter -T 0
 
 3. Parse results and extract hits using anchor-based pk search:
    ```bash
