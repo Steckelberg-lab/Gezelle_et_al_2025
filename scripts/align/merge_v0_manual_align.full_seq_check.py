@@ -1,7 +1,7 @@
 import pandas as pd
 
 # load in the alignment tsv
-align_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/align/merge_v0.align.3.tsv"
+align_path = "/path/to/merge_v0.align.3.tsv"
 df = pd.read_csv(align_path, delimiter='\t')
 
 # merge seq

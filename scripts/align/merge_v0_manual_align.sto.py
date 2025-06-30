@@ -1,7 +1,7 @@
 import pandas as pd
 
 # load in the alignment tsv
-align_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/align/merge_v0.align.3.tsv"
+align_path = "/path/to/merge_v0.align.3.tsv"
 df = pd.read_csv(align_path, delimiter='\t')
 
 # merge seq
@@ -20,6 +20,6 @@ def check_sequence_match(row):
 df['sto_seq'] = df.apply(check_sequence_match, axis=1)
 
 # write
-with open('/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/align/merge_v0.align.sto', 'w') as file:
+with open('/path/to/merge_v0.align.sto', 'w') as file:
     for index, row in df.iterrows():
         file.write(f"{row['seqname']} {row['sto_seq']}\n")

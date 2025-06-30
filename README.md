@@ -4,7 +4,7 @@
 **Gezelle et al. 2025. README for covariation analysis and search of new class 3 xrRNAs.**  
 Based on the scripts and pipeline from Feiyue Yang and utilizing Infernal (E. P. Nawrocki and S. R. Eddy, Infernal 1.1: 100-fold faster RNA homology searches, *Bioinformatics* 29:2933–2935 (2013).)
 
-This repository contains scripts for identifying and analyzing viral XRN1-resistant RNAs (xrRNAs), including alignment, structure-based search with Infernal, clustering, taxonomy classification, and metagene context analysis.
+This repository contains scripts for identifying and analyzing viral XRN1-resistant RNAs (xrRNAs), including alignment, structure-based search with Infernal, taxonomy classification, and metagene context analysis.
 
 ## Input Sequences
 
@@ -13,134 +13,71 @@ Start with:
 - ST9a highly similar sequences (from BLASTn)
 - Previously reported plant xrRNAs (see Steckelberg et al., RNA 2020: https://doi.org/10.1261/rna.076224.120)
 
-## Step 1: Generate the STO File (Structured Alignment)
-
-Scripts: `scripts/align/`
+## Step 1: Generate the initial STO File (Structured Alignment)
 
 1. Align pseudoknots using anchor sequences:
    ```bash
-   python merge_v0_manual_align.py input.fasta > output.tsv
+   ./scripts/align/merge_v0_manual_align.py
    ```
 
 2. Manually edit the `.tsv` file to align unanchored regions. Each row = sequence; each column = structural feature.
 
 3. Convert the `.tsv` to a Stockholm `.sto` file:
    ```bash
-   python merge_v0_manual_align.sto.py aligned.tsv > aligned.sto
+   ./scripts/align/merge_v0_manual_align.sto.py
    ```
 
 4. Verify full sequence coverage:
    ```bash
-   python merge_v0_manual_align.full_seq_check.py aligned.sto
+   ./scripts/align/merge_v0_manual_align.full_seq_check.py
    ```
 
 ## Step 2: Search with Infernal
 
-Scripts: `scripts/infernal/`
+1. Download the database from NCBI virus / BV-BRC
 
-1. Download viral genomes from NCBI Virus or use a local database (e.g., `data/ncbi_virus/`).
-
-2. Run cmsearch with Infernal:
-   ```bash
-   ./merge_v0.infernal.sh
-   ```
+2. Build CM model with initial alighment created and calibrate (`cmbuild`, `cmcalibrate`), run `cmsearch` with the parameter -T 0
 
 3. Parse results and extract hits using anchor-based pk search:
    ```bash
-   python merge_v0.infernal.pk_search.py cmsearch_output.tbl
+   ./scripts/infernal/merge_v0.infernal.pk_search.py
    ```
 
-4. Manually review `.tsv` output and filter sequences:
+4. Manually review `.tsv` output, filter sequences, and convert to fasta format for alignment:
    ```bash
-   python merge_v0.infernal.pk_search.2fa.py filtered.tsv > output.fasta
+   ./scripts/infernal/merge_v0.infernal.pk_search.2fa.py
    ```
 
-5. Align filtered sequences with `cmalign`:
-   ```bash
-   ./merge_v0.infernal.cmalign.sh
-   ```
+5. Align filtered sequences with `cmalign`, using the initial CM as reference
 
 6. Manually check alignment and adjust sequences as needed.
 
 7. Finalize sequence IDs:
    ```bash
-   python ../metagene/id_curation.py corrected_alignment.sto
+   ./scripts/metagene/id_curation.py
    ```
 
 ## Step 3: Taxonomy Annotation
 
-Scripts: `scripts/taxonomy/`
-
 1. Retrieve taxonomy info from NCBI:
    ```bash
-   python retrieve_taxo.py sequence_list.txt
+   ./scripts/taxonomy/retrieve_taxo.py
    ```
 
-2. Split `.sto` file into subsets for R-scape:
-   ```bash
-   python split_sto.py alignment.sto taxonomy.tsv
-   ```
-
-## Step 4: Structural Clustering (NoFold)
-
-Scripts: `scripts/clustering/`  
-NoFold GitHub: https://github.com/kimpenn/nofold
-
-1. Convert `.sto` to `.fasta` for NoFold:
-   ```bash
-   python merge_v0.mpkadded.confident.nofold.id.py input.sto > input.fasta
-   ```
-
-2. Run NoFold scoring:
-   ```bash
-   ./merge_v0.mpkadded.confident.nofold.score_cm.sh
-   ```
-
-3. Create taxonomy labels for PCA plotting:
-   ```bash
-   python merge_v0.mpkadded.confident.nofold.label.py
-   ```
-
-4. Generate PCA plots:
-   ```bash
-   python merge_v0_test.nofold.pca_plot.py
-   ```
-
-## Step 5: Metagene Context
-
-Scripts: `scripts/metagene/`
+## Step 4: Metagene Context
 
 1. Retrieve NCBI metadata:
    ```bash
-   python accession_info.py
+   ./scripts/metagene/accession_info.py
    ```
 
 2. Pull gene context annotations:
    ```bash
-   python metagene_all.py
-   python metagene_complete_genome.py
-   python metagene_complete_cds.py
+   ./scripts/metagene/metagene_all.py
    ```
-
-## Directory Structure
-
-```
-scripts/
-├── align/
-├── clustering/
-├── infernal/
-├── metagene/
-├── taxonomy/
-data/
-results/
-```
-
-## Requirements
-
-- Python 3+
-- Infernal: http://eddylab.org/infernal/
-- NoFold: https://github.com/kimpenn/nofold
-- Biopython, NumPy, Pandas, Matplotlib
+   ```bash
+   ./scripts/metagene/metagene_complete_genome.py
+   ```
 
 ## Notes
 

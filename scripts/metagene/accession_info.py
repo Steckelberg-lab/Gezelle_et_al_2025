@@ -4,7 +4,7 @@ from Bio import Entrez, SeqIO, AlignIO
 
 
 # load the sto
-sto_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/infernal/v1_2/manual_pk_cmalign/merge_v0.align.mpkadded.edited.confident.dedup.IDcurated.sto"
+sto_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.IDcurated.sto"
 alignment = AlignIO.read(sto_path, "stockholm")
 
 # extract the Genbank ID from sequence identifier
@@ -60,7 +60,7 @@ df['seq_from'], df['seq_to'] = zip(*df['seqID'].apply(extract_seq_from_to))
 df['strand'] = df['seqID'].apply(extract_strand)
 
 # retrieve description
-Entrez.email = "fy2306@columbia.edu"
+Entrez.email = "name@email.com"
 
 # Function to fetch description information
 def fetch_description(accession):
@@ -92,5 +92,5 @@ df['genome'] = df['description_of_target'].apply(
 )
 
 
-df_save_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/metagene/merge_v0.align.mpkadded.edited.confident.dedup.info.tsv"
+df_save_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.info.tsv"
 df.to_csv(df_save_path, sep="\t", index=False)

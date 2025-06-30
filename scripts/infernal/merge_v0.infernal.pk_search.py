@@ -1,6 +1,5 @@
 # Following intial step: cmsearch - SS_cons stem-loop
-# Manually search for pk using anchor seqs
-# TODO: can be written using bio.seq entirely
+# Search for pk using anchor seqs
 
 import pandas as pd
 from Bio import SeqIO, AlignIO
@@ -9,20 +8,19 @@ import gzip
 import re
 
 # Config
-shared_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/infernal/v1_2"
+shared_path = "/path/to/shared_path"
 
 re_path = f"{shared_path}/merge_v0.cmsearch.out"
 interm_re_path = f"{shared_path}/manual_pk/merge_v0.cmsearch.manual_pk.interm.tsv"
 final_re_path = f"{shared_path}/manual_pk/merge_v0.cmsearch.manual_pk.tsv"
 
-db_path = "/ifs/data/as6282_gp/fy2306/projects/xrRNA_search/data/ncbi_virus/ncbi_virus_Viridiplantae.fa.gz"
-db_meta_path = "/ifs/data/as6282_gp/fy2306/projects/xrRNA_search/data/ncbi_virus/ncbi_virus_Viridiplantae.metadata.csv"
-sto_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/align/merge_v0.align.sto"
+db_path = "/path/to/ncbi_virus_Viridiplantae.fa.gz"
+db_meta_path = "/path/to/ncbi_virus_Viridiplantae.metadata.csv"
+sto_path = "/path/to/merge_v0.align.sto"    # initial sto
 
 # ----------------------------------------------------------------------------------------------------------------------
 
 # Generate the extended seq2table from step1 cmsearch output
-# largely taken from merge_v0.infernal.parse.dedup.py
 
 # 1. parse the cmsearch output
 
@@ -110,7 +108,6 @@ print(f"Initial deduplication based on seqs: {len(re_df)}")
 # --------------------------------------------------------------------------------------------------------------
 
 # Search for pk and trim the seq to 2nt after the pk
-# largely taken from merge_v0_manual_align.py
 
 def iupac_to_regex(sequence):
     # Maps IUPAC ambiguous base symbols to regex character sets

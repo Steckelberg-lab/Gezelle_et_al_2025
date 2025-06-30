@@ -1,14 +1,14 @@
 import pandas as pd
 from Bio import Entrez, SeqIO
 
-df_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/metagene/merge_v0.align.mpkadded.edited.confident.dedup.info.tsv"
-df_save_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/metagene/merge_v0.align.mpkadded.edited.confident.dedup.complete_genome.tsv"
+df_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.info.tsv"
+df_save_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.complete_genome.tsv"
 df = pd.read_csv(df_path, sep="\t")
 
 # complete genome
 df = df[(df["complete"] == "complete") & (df["genome"] == "genome")]
 
-Entrez.email = "fy2306@cumc.columbia.edu"
+Entrez.email = "name@email.com"
 
 def fetch_genome_features(accession):
     handle = Entrez.efetch(db="nucleotide", id=accession, rettype="gb", retmode="text")

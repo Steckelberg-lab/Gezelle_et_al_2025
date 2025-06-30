@@ -7,8 +7,8 @@ from Bio.Align import MultipleSeqAlignment
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 
-input_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/infernal/v1_2/manual_pk_cmalign/merge_v0.align.mpkadded.edited.confident.dedup.sto"
-output_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/infernal/v1_2/manual_pk_cmalign/merge_v0.align.mpkadded.edited.confident.dedup.IDcurated.sto"
+input_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.sto"
+output_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.IDcurated.sto"
 
 alignment = AlignIO.read(input_path, "stockholm")
 
@@ -71,7 +71,7 @@ df['strand'] = df['seqID'].apply(extract_strand)
 
 # check the seq
 
-Entrez.email = "fy2306@columbia.edu"
+Entrez.email = "name@email.com"
 
 def fetch_sequence(accession, seq_from, seq_to):
 

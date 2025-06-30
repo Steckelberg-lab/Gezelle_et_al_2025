@@ -3,7 +3,7 @@ import re
 from Bio import Entrez, SeqIO, AlignIO
 
 # load the sto
-sto_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/infernal/v1_2/manual_pk_cmalign/merge_v0.align.mpkadded.edited.confident.dedup.sto"
+sto_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.sto"    # final alignment
 alignment = AlignIO.read(sto_path, "stockholm")
 
 # extract the Genbank ID from sequence identifier
@@ -40,7 +40,7 @@ else:
 # need manual check
 # some associated viruses will be wrongly labeled as Polerovirus or not labeled
 
-Entrez.email = "feiyue_yang@outlook.com"
+Entrez.email = "name@email.com"
 
 def fetch_taxonomy_info(accession):
     try:
@@ -74,6 +74,6 @@ for index, row in df.iterrows():
         df.at[index, 'taxo'] = family
 
 
-df_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/taxonomy/merge_v0.align.mpkadded.edited.confident.dedup.taxo.tsv"
+df_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.taxo.tsv"
 
 df.to_csv(df_path, index=False, sep="\t")

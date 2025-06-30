@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from Bio import AlignIO
 
-sto_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/plots/merge_v0.align.mpkadded.edited.confident.dedup.length.sto"
+sto_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.length.sto"
 
 alignment = AlignIO.read(sto_path, 'stockholm')
 
@@ -17,7 +17,7 @@ for record in alignment:
 seq_lengths = [len(seq) for seq in sequences]
 
 df = pd.DataFrame({'sequence_length': seq_lengths})
-df.to_csv("/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/plots/merge_v0.align.mpkadded.edited.confident.dedup.length.tsv", sep="\t", index=False)
+df.to_csv("/path/to/merge_v0.align.mpkadded.edited.confident.dedup.length.tsv", sep="\t", index=False)
 
 min_length = df['sequence_length'].min()
 max_length = df['sequence_length'].max()
@@ -35,7 +35,7 @@ plt.xlabel('Sequence Length')
 plt.ylabel('Frequency')
 plt.title('Distribution of Sequence Lengths')
 
-output_file = '/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/plots/sequence_length_histogram.svg'
+output_file = '/path/to/sequence_length_histogram.svg'
 plt.savefig(output_file, format='svg', dpi=600)
 
 sub_df = df[df["sequence_length"] >= 15]

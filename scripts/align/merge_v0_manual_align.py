@@ -4,7 +4,7 @@ from Bio.pairwise2 import format_alignment
 import pandas as pd
 import numpy as np
 
-filename = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/data/fasta/merge_v0.fasta"
+filename = "/path/to/merge_v0.fasta"
 sequences = list(SeqIO.parse(filename, "fasta"))
 
 def iupac_to_regex(sequence):
@@ -172,4 +172,4 @@ for seq in sequences[:]:
     df = pd.concat([df, new_row], ignore_index=True)
         
 
-df.to_csv('/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/align/merge_v0.align.0.tsv', sep='\t', index=False)
+df.to_csv('/path/to/merge_v0.align.0.tsv', sep='\t', index=False)

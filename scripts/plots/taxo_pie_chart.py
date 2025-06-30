@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df_path = "/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/taxonomy/merge_v0.align.mpkadded.edited.confident.dedup.taxo.tsv"
+df_path = "/path/to/merge_v0.align.mpkadded.edited.confident.dedup.taxo.tsv"
 df = pd.read_csv(df_path, sep="\t")
 
 taxo_counts = df['taxo'].value_counts()
@@ -35,5 +35,5 @@ plt.axis('equal')  # Equal aspect ratio ensures that the pie is drawn as a circl
 plt.legend(patches, labels, loc='upper center', bbox_to_anchor=(0.5, 0.12), ncol=2, frameon=False)
 
 # Save the plot to a file
-output_file = '/ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/results/plots/taxo_pie_chart.svg'
+output_file = '/path/to/taxo_pie_chart.svg'
 plt.savefig(output_file, format='svg', dpi=600)
