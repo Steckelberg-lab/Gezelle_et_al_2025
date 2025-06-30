@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#$ -l mem=2G,time=3:00:
+#$ -S /bin/bash
+#$ -N metagene_genome
+#$ -cwd
+#$ -t 1
+#$ -o /ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/script/logs/$JOB_NAME.out
+#$ -e /ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/script/logs/$JOB_NAME.err
+
+source /ifs/data/as6282_gp/fy2306/miniconda3/bin/activate /ifs/data/as6282_gp/fy2306/miniconda3/envs/py3.12
+
+python /ifs/scratch/as6282_gp/fy2306/projects/xrRNA_search/script/merge_v0/metagene/metagene_complete_genome_intergenic_length.py
